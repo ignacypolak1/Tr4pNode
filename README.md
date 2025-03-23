@@ -1,4 +1,4 @@
-# 🌍 CyberPot – Honeypot Visualization Platform (MVP)
+# 🌍 CyberPot – Honeypot Visualization Platform
 
 **CyberPot** is a research-focused honeypot platform that collects incoming attack data and visualizes it in real-time on an animated 3D globe. The project aims to deliver a modular, educational-friendly tool that can be used for threat analysis, DevSecOps practice, or public demonstrations of cybersecurity concepts.
 
