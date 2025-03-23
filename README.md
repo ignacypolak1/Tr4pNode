@@ -36,7 +36,7 @@
 ## ⚠️ Disclaimer
 
 This project is provided **for educational and research purposes only**.  
-The authors and contributors take **no responsibility** for any misuse of this software.  
+The authors and contributors take **no responsibility** for any use of this software.  
 Do not deploy this in environments where it could interfere with production systems or violate legal boundaries.
 
 ---
