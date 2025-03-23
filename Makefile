@@ -1,8 +1,8 @@
-VENV_DIR=exporter/.venv
+VENV_DIR=backend/.venv
 PYTHON=$(VENV_DIR)/bin/python
 PIP=$(VENV_DIR)/bin/pip
 
-EXPORTER_ROOT=exporter
+BACKEND_ROOT=backend
 FRONTENT_ROOT=frontend
 TERRAFORM_ROOT=infrastructure/terraform
 
@@ -12,17 +12,17 @@ help:
 	@echo ""
 	@echo "CyberPot Makefile – available commands:"
 	@echo ""
-	@echo "  make run-exporter-dev     – run the exporter backend (Python)"
+	@echo "  make run-backend-dev     – run the backend (Python)"
 	@echo "  make run-frontend-dev     – run the frontend (React + Vite)"
 	@echo ""
 	@echo "  make terraform-apply      – deploy infrastructure on Hetzner (with dynamic IP detection)"
 	@echo "  make terraform-destroy    – destroy Hetzner infrastructure"
 	@echo ""
 
-run-exporter-dev:
+run-backend-dev:
 	test ! -d $(VENV_DIR) && python3 -m venv $(VENV_DIR); \
 	$(PIP) install -r $(VENV_DIR)/../requirements.txt; \
-	PYTHONPATH=${EXPORTER_ROOT} $(PYTHON) -m app.exporter
+	PYTHONPATH=${BACKEND_ROOT} $(PYTHON) -m app.exporter
 
 run-frontend-dev:
 	cd ${FRONTENT_ROOT}; \
