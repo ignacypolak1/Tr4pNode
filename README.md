@@ -4,9 +4,9 @@
 
 ---
 
-## 🔥 What It Does
+## 🔥 What It Does?
 
-- Listens for unauthorized SSH/Telnet access via **Cowrie**
+- Listens for unauthorized SSH access via **Cowrie**
 - Logs attacks and streams parsed metadata via **WebSocket**
 - Visualizes attacks as animated arcs between attacker and victim on a **3D globe** using **three-globe**
 - Built to be **lightweight**, **hackable**, and **open-source**
