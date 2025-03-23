@@ -18,7 +18,6 @@
 - **Exporter** (Python): parses Cowrie logs and sends attack metadata over WebSocket
 - **Frontend** (React + TypeScript + Tailwind): displays Earth texture + animated arcs
 - **Globe Visualization**: powered by `three-globe`, using bump + high-res Earth textures
-- **Mock Mode**: runs without Cowrie using randomly generated attack coordinates/colors
 
 ---
 
