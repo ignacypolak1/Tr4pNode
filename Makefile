@@ -35,3 +35,13 @@ frontend-install:
 
 run-frontend-dev:
 	@cd frontend && npm run dev
+
+terraform-apply:
+	@cd infrastructure/terraform; \
+	@test ! -d .terraform && terraform init; \
+	terraform apply -var "my_ip=$(shell curl -s ifconfig.me)/32" --auto-approve
+
+terraform-destroy:
+	@cd infrastructure/terraform; \
+	@test ! -d .terraform && terraform init; \
+	terraform destroy -var "my_ip=$(shell curl -s ifconfig.me)/32" --auto-approve
