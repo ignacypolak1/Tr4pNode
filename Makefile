@@ -2,46 +2,39 @@ VENV_DIR=exporter/.venv
 PYTHON=$(VENV_DIR)/bin/python
 PIP=$(VENV_DIR)/bin/pip
 
+EXPORTER_ROOT=exporter
+FRONTENT_ROOT=frontend
+TERRAFORM_ROOT=infrastructure/terraform
+
 .PHONY: venv-install venv-update venv-activate venv-deactivate venv-clean
 
 help:
-	@echo "Usage:"
-	@echo "make venv-install - Install python virtual environment with requirements"
-	@echo "make venv-update - Update python virtual environment"
-	@echo "make venv-activate - Activate python virtual environment"
-	@echo "make venv-deactivate - Deactivate python virtual environment"
-	@echo "make venv-clean - Clean python virtual environment"
+	@echo ""
+	@echo "CyberPot Makefile – available commands:"
+	@echo ""
+	@echo "  make run-exporter-dev     – run the exporter backend (Python)"
+	@echo "  make run-frontend-dev     – run the frontend (React + Vite)"
+	@echo ""
+	@echo "  make terraform-apply      – deploy infrastructure on Hetzner (with dynamic IP detection)"
+	@echo "  make terraform-destroy    – destroy Hetzner infrastructure"
+	@echo ""
 
-venv-install:
-	@test -d $(VENV_DIR) || python3 -m venv $(VENV_DIR) && $(PIP) install -r $(VENV_DIR)/../requirements.txt
-	@echo "Virtual environment created and requirements installed"
-
-venv-update:
-	@test -d $(VENV_DIR) && $(PIP) install -r $(VENV_DIR)/../requirements.txt
-	@echo "Virtual environment updated"
-
-venv-clean:
-	@rm -rf $(VENV_DIR)
-	find . -type d -name "__pycache__" -exec rm -r {} +
-	find . -type f -name "*.pyc" -delete
-	@echo "Virtual environment cleaned"
-
-run-exporter:
-	@test -d $(VENV_DIR) && source $(VENV_DIR)/bin/activate
+run-exporter-dev:
+	test ! -d $(VENV_DIR) && python3 -m venv $(VENV_DIR); \
+	$(PIP) install -r $(VENV_DIR)/../requirements.txt; \
 	PYTHONPATH=exporter $(PYTHON) -m app.exporter
 
-frontend-install:
-	@cd frontend && npm install
-
 run-frontend-dev:
-	@cd frontend && npm run dev
+	cd ${FRONTENT_ROOT}; \
+	test ! -d node_modules && npm install; \
+	npm run dev
 
 terraform-apply:
-	@cd infrastructure/terraform; \
-	@test ! -d .terraform && terraform init; \
+	cd ${TERRAFORM_ROOT}; \
+	test ! -d .terraform && terraform init; \
 	terraform apply -var "my_ip=$(shell curl -s ifconfig.me)/32" --auto-approve
 
 terraform-destroy:
-	@cd infrastructure/terraform; \
-	@test ! -d .terraform && terraform init; \
+	cd infrastructure/terraform; \
+	test ! -d .terraform && terraform init; \
 	terraform destroy -var "my_ip=$(shell curl -s ifconfig.me)/32" --auto-approve
