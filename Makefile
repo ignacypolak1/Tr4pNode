@@ -22,7 +22,7 @@ help:
 run-exporter-dev:
 	test ! -d $(VENV_DIR) && python3 -m venv $(VENV_DIR); \
 	$(PIP) install -r $(VENV_DIR)/../requirements.txt; \
-	PYTHONPATH=exporter $(PYTHON) -m app.exporter
+	PYTHONPATH=${EXPORTER_ROOT} $(PYTHON) -m app.exporter
 
 run-frontend-dev:
 	cd ${FRONTENT_ROOT}; \
@@ -35,6 +35,6 @@ terraform-apply:
 	terraform apply -var "my_ip=$(shell curl -s ifconfig.me)/32" --auto-approve
 
 terraform-destroy:
-	cd infrastructure/terraform; \
+	cd ${TERRAFORM_ROOT}; \
 	test ! -d .terraform && terraform init; \
 	terraform destroy -var "my_ip=$(shell curl -s ifconfig.me)/32" --auto-approve
