@@ -1,5 +1,4 @@
 volumes:
-  prometheus_data:
   grafana_data:
   mongo_data:
 
@@ -32,3 +31,14 @@ services:
       - cyberpot_net
     depends_on:
       - mongo
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: cyberpot-grafana
+    restart: unless-stopped
+    ports:
+      - "3001:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+    networks:
+      - cyberpot_net
