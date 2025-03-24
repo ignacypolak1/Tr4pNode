@@ -2,21 +2,13 @@ version: "3.8"
 
 volumes:
   cowrie_data:
-  mongo_data:
+  prometheus_data:
+  grafana_data:
 
 networks:
   cyberpot_net:
 
 services:
-  mongo:
-    image: mongo:6
-    container_name: mongo
-    restart: unless-stopped
-    networks:
-      - cyberpot_net
-    volumes:
-      - mongo_data:/data/db
-
   honeypot:
     image: cowrie/cowrie
     container_name: cyberpot-honeypot
@@ -53,10 +45,34 @@ services:
     restart: unless-stopped
     ports:
       - "3000:3000"
-      - "3001:3001"
     networks:
       - cyberpot_net
     depends_on:
       - mongo
       - backend
       - honeypot
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: cyberpot-prometheus
+    restart: unless-stopped
+    volumes:
+      - prometheus_data:/prometheus
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - cyberpot_net
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: cyberpot-grafana
+    restart: unless-stopped
+    ports:
+      - "3001:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning
+      - ./grafana/dashboards:/etc/grafana/dashboards
+    networks:
+      - cyberpot_net
+    depends_on:
+      - prometheus
