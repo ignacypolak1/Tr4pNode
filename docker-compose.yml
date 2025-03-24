@@ -47,3 +47,5 @@ services:
       - ./grafana/dashboards:/etc/grafana/dashboards
     networks:
       - cyberpot_net
+    depends_on:
+      - mongo
