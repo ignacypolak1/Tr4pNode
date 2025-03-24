@@ -33,17 +33,13 @@ services:
     depends_on:
       - mongo
 
-  grafana:
-    image: grafana/grafana:latest
-    container_name: cyberpot-grafana
+  metabase:
+    image: metabase/metabase
+    container_name: cyberpot-metabase
     restart: unless-stopped
     ports:
-      - "3001:3000"
-    volumes:
-      - grafana_data:/var/lib/grafana
-      - ./grafana/provisioning:/etc/grafana/provisioning
-      - ./grafana/dashboards:/etc/grafana/dashboards
+      - "3002:3000"
     networks:
       - cyberpot_net
     depends_on:
-      - prometheus
+      - mongo
