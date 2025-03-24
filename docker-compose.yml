@@ -1,27 +1,37 @@
-version: "3.8"
-
 volumes:
-  cowrie_data:
   prometheus_data:
   grafana_data:
+  mongo_data:
 
 networks:
   cyberpot_net:
 
 services:
+  mongo:
+    image: mongo:6
+    container_name: cyberpot-mongo
+    restart: unless-stopped
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - cyberpot_net
+
   honeypot:
     image: cowrie/cowrie
     container_name: cyberpot-honeypot
     restart: unless-stopped
     ports:
-      - "22:22"
+      - "22:2222"
     environment:
       - COWRIE_TELNET_ENABLED=no
       - COWRIE_SSH_ENABLED=yes
     volumes:
-      - cowrie_data:/cowrie
+      - ./cowrie/cowrie.cfg:/cowrie/cowrie-git/etc/cowrie.cfg
+      - ./cowrie/userdb.txt:/cowrie/cowrie-git/etc/userdb.txt
     networks:
       - cyberpot_net
+    depends_on:
+      - mongo
 
   backend:
     build:
@@ -29,12 +39,9 @@ services:
       dockerfile: Dockerfile
     container_name: cyberpot-backend
     restart: unless-stopped
-    volumes:
-      - cowrie_data:/cowrie
     networks:
       - cyberpot_net
     depends_on:
-      - mongo
       - honeypot
 
   frontend:
@@ -48,7 +55,6 @@ services:
     networks:
       - cyberpot_net
     depends_on:
-      - mongo
       - backend
       - honeypot
 
