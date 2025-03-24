@@ -32,14 +32,3 @@ services:
       - cyberpot_net
     depends_on:
       - mongo
-
-  metabase:
-    image: metabase/metabase
-    container_name: cyberpot-metabase
-    restart: unless-stopped
-    ports:
-      - "3002:3000"
-    networks:
-      - cyberpot_net
-    depends_on:
-      - mongo
