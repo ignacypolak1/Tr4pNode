@@ -33,16 +33,6 @@ services:
     depends_on:
       - mongo
 
-  prometheus:
-    image: prom/prometheus:latest
-    container_name: cyberpot-prometheus
-    restart: unless-stopped
-    volumes:
-      - prometheus_data:/prometheus
-      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
-    networks:
-      - cyberpot_net
-
   grafana:
     image: grafana/grafana:latest
     container_name: cyberpot-grafana
