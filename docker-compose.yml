@@ -33,31 +33,6 @@ services:
     depends_on:
       - mongo
 
-  backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
-    container_name: cyberpot-backend
-    restart: unless-stopped
-    networks:
-      - cyberpot_net
-    depends_on:
-      - honeypot
-
-  frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    container_name: cyberpot-frontend
-    restart: unless-stopped
-    ports:
-      - "3000:3000"
-    networks:
-      - cyberpot_net
-    depends_on:
-      - backend
-      - honeypot
-
   prometheus:
     image: prom/prometheus:latest
     container_name: cyberpot-prometheus
