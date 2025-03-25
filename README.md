@@ -8,7 +8,6 @@ You can explore real-time logs on an interactive **3D globe** or create **advanc
 
 ## 🔥 What It Does?
 
-- Listens for unauthorized SSH access via **Cowrie**
 - Captures unauthorized SSH activity via Cowrie and stores data in **MongoDB**
 - Visualizes attacks as animated arcs between attacker and honeypot server location on a **3D globe** using **three-globe** (WIP)
 - Uses **Grafana dashboards** for attack metadata visualization and research purposes
