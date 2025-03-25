@@ -1,23 +1,29 @@
 # 🌍 CyberPot – Honeypot Visualization Platform
 
-**CyberPot** is a research-focused honeypot platform that collects incoming attack data and visualizes it in real-time on an animated 3D globe. The project aims to deliver a modular, educational-friendly tool that can be used for threat analysis, DevSecOps practice, or public demonstrations of cybersecurity concepts.
+**CyberPot** is an lightweight, hackable and open-source, research-oriented honeypot platform designed to capture and visualize cyberattacks in real time. It provides an educational-friendly and modular environment that supports threat analysis, DevSecOps training, and public demonstrations of cybersecurity concepts.
+With Cowrie as the SSH honeypot, MongoDB for structured data storage, and Grafana (powered by the Infinity plugin) for dashboard-based exploration, CyberPot bridges low-level event capture with high-level visualization.
+You can explore real-time logs on an interactive **3D globe** or create **advanced Grafana dashboards** to analyze patterns, sources, and attack metadata.
 
----
+----
 
 ## 🔥 What It Does?
 
 - Listens for unauthorized SSH access via **Cowrie**
-- Logs attacks and streams parsed metadata via **WebSocket**
-- Visualizes attacks as animated arcs between attacker and victim on a **3D globe** using **three-globe**
-- Built to be **lightweight**, **hackable**, and **open-source**
+- Captures unauthorized SSH activity via Cowrie and stores data in **MongoDB**
+- Visualizes attacks as animated arcs between attacker and honeypot server location on a **3D globe** using **three-globe** (WIP)
+- Uses **Grafana dashboards** for attack metadata visualization and research purposes
+
+Offers full flexibility for research, visualization, and educational use cases
 
 ---
 
 ## 📡 MVP Components
 
-- **Exporter** (Python): parses Cowrie logs and sends attack metadata over WebSocket
-- **Frontend** (React + TypeScript + Tailwind): displays Earth texture + animated arcs
-- **Globe Visualization**: powered by `three-globe`, using bump + high-res Earth textures
+- Cowrie (SSH Honeypot) – exposes fake SSH services to attract and log attackers
+- MongoDB – stores structured logs for both visualization and analytics
+- Backend (Python + FastAPI) – handles API for Grafana and WebSocket data stream for the frontend
+- Frontend (React + TypeScript + TailwindCSS) – renders the animated globe and real-time attack events
+- Grafana – provides powerful dashboards using Infinity plugin connected to backend API (MongoDB data)
 
 ---
 
@@ -43,10 +49,11 @@ Do not deploy this in environments where it could interfere with production syst
 
 ## 🧩 Next Steps (WIP)
 
-- [ ] Cowrie log integration
-- [ ] IP geolocation database
-- [ ] Grafana dashboard (via Prometheus metrics)
+- [ ] IP geolocation via GeoLite2 or IP2Location
+- [ ] Threat feed export (STIX, JSON, etc.)
+- [ ] Tagging and enriching attacker metadata
+- [ ] Improved alerting and monitoring capabilities
 - [ ] Public deployment on Hetzner
-- [x] Realtime arc animations per attacker (done ✅)
+- [ ] Additional Grafana dashboards and UI improvements
 
 ---
