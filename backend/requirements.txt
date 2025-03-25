@@ -1,5 +1,4 @@
-websockets
-prometheus_client
-prometheus_fastapi_instrumentator
-watchdog
+uvicorn
+fastapi
+pymongo
 pydantic

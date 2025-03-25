@@ -15,6 +15,19 @@ services:
     networks:
       - cyberpot_net
 
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: cyberpot-backend
+    environment:
+      - MONGO_URI=mongodb://mongo:27017
+    restart: unless-stopped
+    networks:
+      - cyberpot_net
+    depends_on:
+      - mongo
+
   honeypot:
     image: cowrie/cowrie
     container_name: cyberpot-honeypot
@@ -40,6 +53,8 @@ services:
       - "3001:3000"
     environment:
       - GF_INSTALL_PLUGINS=yesoreyeram-infinity-datasource
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
     volumes:
       - grafana_data:/var/lib/grafana
       - ./grafana/provisioning/dashboards.yml:/etc/grafana/provisioning/dashboards/dashboards.yml
@@ -48,4 +63,5 @@ services:
     networks:
       - cyberpot_net
     depends_on:
+      - backend
       - mongo
