@@ -1,15 +1,17 @@
 import { useEffect, useRef } from "react";
 
-export type Attack = {
-  from: { lat: number; lng: number; color: string };
-  to: { lat: number; lng: number };
+export type Session = {
+  id: string;
+  lat_from: number;
+  lon_from: number;
+  lat_to: number;
+  lon_to: number;
   color: string;
-  timestamp: number;
 };
 
 export const useWebSocket = (
   url: string,
-  onMessage: (data: Attack) => void
+  onSessionsReceived: (data: Session[]) => void
 ) => {
   const wsRef = useRef<WebSocket | null>(null);
 
@@ -26,9 +28,7 @@ export const useWebSocket = (
     ws.onmessage = (event) => {
       try {
         const data = JSON.parse(event.data);
-        if (data.type === "attack") {
-          onMessage(data);
-        }
+        onSessionsReceived(data);
       } catch (err) {
         console.error("Failed to parse WebSocket message", err);
       }

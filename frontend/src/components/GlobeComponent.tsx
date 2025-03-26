@@ -3,17 +3,16 @@ import Globe from "three-globe";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { OrbitControls, Stars } from "@react-three/drei";
 import { useWebSocket } from "../hooks/useWebSocket";
-import { Attack } from "../hooks/useWebSocket";
+import { Session } from "../hooks/useWebSocket";
 import { useCallback } from "react";
-import { color } from "three/tsl";
 
 type GlobeRendererProps = {
   setLoaded: (val: boolean) => void;
-  attacks: Attack[];
+  sessions: Session[];
 };
 
-const GlobeRenderer = ({ setLoaded, attacks }: GlobeRendererProps) => {
-  const globeRef = useRef<any>(null);
+const GlobeRenderer = ({ setLoaded, sessions }: GlobeRendererProps) => {
+  const globeRef = useRef<Globe>(null);
   const { scene } = useThree();
 
   useEffect(() => {
@@ -35,21 +34,22 @@ const GlobeRenderer = ({ setLoaded, attacks }: GlobeRendererProps) => {
   }, [scene]);
 
   useEffect(() => {
-    if (!globeRef.current || attacks.length === 0) return;
+    if (!globeRef.current || sessions.length === 0) return;
 
     const globe = globeRef.current;
 
-    const newArc = {
-      startLat: attacks.at(-1)!.from.lat,
-      startLng: attacks.at(-1)!.from.lng,
-      endLat: attacks.at(-1)!.to.lat,
-      endLng: attacks.at(-1)!.to.lng,
-      color: [attacks.at(-1)!.from.color, attacks.at(-1)!.from.color],
-    };
+    const arcs = sessions.map((session) => {
+      return {
+        startLat: session.lat_from,
+        startLng: session.lon_from,
+        endLat: session.lat_to,
+        endLng: session.lon_to,
+        color: [session.color, session.color],
+      };
+    });
 
-    const current = globe.arcsData();
-    globe.arcsData([...current, newArc]);
-  }, [attacks]);
+    globe.arcsData([...arcs]);
+  }, [sessions]);
 
   useFrame(() => {
     if (globeRef.current) {
@@ -62,26 +62,39 @@ const GlobeRenderer = ({ setLoaded, attacks }: GlobeRendererProps) => {
 
 const GlobeComponent = () => {
   const [loaded, setLoaded] = useState(false);
-  const [attacks, setAttacks] = useState<Attack[]>([]);
-  const onAttack = useCallback((attack: Attack) => {
-    setAttacks((prev) => [...prev, attack]);
+  const [sessions, setSessions] = useState<Session[]>([]);
+
+  const onSessionsReceived = useCallback((sessions: Session[]) => {
+    setSessions((currentSessions) => {
+      const currentIds = new Set(currentSessions.map((s) => s.id));
+      const newIds = new Set(sessions.map((s) => s.id));
+
+      const added = sessions.filter((s) => !currentIds.has(s.id));
+      const unchanged = currentSessions.filter((s) => newIds.has(s.id));
+
+      return [...unchanged, ...added];
+    });
   }, []);
-  useWebSocket("ws://localhost:8000", onAttack);
+
+  useWebSocket(
+    process.env.BACKEND_WEBSOCKET_URI ?? "ws://backend:8000/ws",
+    onSessionsReceived
+  );
 
   return (
     <div className="w-full h-screen bg-black">
       {!loaded && (
-        <div className="absolute w-full h-full justify-center z-1 bg-black items-center justify-center flex flex-col">
+        <div className="absolute w-full h-full z-1 bg-black items-center justify-center flex flex-col">
           <div className="animate-spin rounded-full h-32 w-32 border-t-4 border-b-4 border-lime-500 border-solid" />
-          <p className="mt-4 text-white text-center text-3xl mt-10">
-            Loading Earth 21K...
+          <p className="text-white text-center text-3xl mt-10">
+            Loading Earth...
           </p>
         </div>
       )}
       <Canvas camera={{ position: [0, 0, 400], fov: 34 }}>
         <ambientLight intensity={8} />
         <pointLight position={[200, 0, 0]} />
-        <GlobeRenderer setLoaded={setLoaded} attacks={attacks} />
+        <GlobeRenderer setLoaded={setLoaded} sessions={sessions} />
         <OrbitControls enableZoom={true} />
         <Stars radius={250} depth={60} count={2000} factor={7} fade />
       </Canvas>
