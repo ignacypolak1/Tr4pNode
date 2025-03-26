@@ -32,7 +32,7 @@ db = mongo["cowrie"]
 
 
 class Session(BaseModel):
-    _id: str
+    id: str
     lat_from: float
     lon_from: float
     lat_to: float
@@ -67,7 +67,7 @@ async def get_active_sessions():
         lat, lon = await geolocate_ip(sess["src_ip"])
         if lat and lon:
             session = Session(
-                _id=str(sess["_id"]),
+                id=str(sess["_id"]),
                 lat_from=lat,
                 lon_from=lon,
                 lat_to=HONEYPOT_LAT,
