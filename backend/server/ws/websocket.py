@@ -52,7 +52,7 @@ async def geolocate_ip(ip):
             if data["status"] == "success":
                 return data["lat"], data["lon"]
             elif data["status"] == "fail" and data["message"] == "private range":
-                return HONEYPOT_LAT, HONEYPOT_LON
+                return None, None
             else:
                 raise Exception("Error during IP API request")
     except Exception as e:
