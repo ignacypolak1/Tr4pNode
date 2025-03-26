@@ -1,53 +1,89 @@
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
-from fastapi.responses import JSONResponse
-from fastapi.middleware.cors import CORSMiddleware
-from time import time
+from motor.motor_asyncio import AsyncIOMotorClient
+from pydantic import BaseModel, Field
+import requests
+import httpx
+import asyncio
 import json
 import random
+import os
 
+
+def get_my_location():
+    try:
+        response = requests.get("http://ip-api.com/json/")
+        data = response.json()
+        if data["status"] == "success":
+            return data["lat"], data["lon"]
+    except Exception as e:
+        print(f"Error getting server location: {e}")
+    return None, None
+
+
+HONEYPOT_LAT, HONEYPOT_LON = get_my_location()
+
+if HONEYPOT_LAT is None or HONEYPOT_LON is None:
+    print("Error getting server location. Exiting.")
+    exit(1)
 
 app = FastAPI()
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
-active_connections = set()
+mongo = AsyncIOMotorClient(os.environ["MONGO_URI"])
+db = mongo["cowrie"]
 
 
-def generate_mock_attack():
-    attacker = {
-        "lat": random.random() * 180 - 90,
-        "lng": random.random() * 180 - 90,
-        "country": "Some country",
-        "color": random.choice(["red", "blue", "green"]),
-    }
-
-    return {
-        "type": "attack",
-        "from": {
-            "lat": attacker["lat"],
-            "lng": attacker["lng"],
-            "color": attacker["color"],
-        },
-        "to": {"lat": 52.2297, "lng": 21.0122},
-        "timestamp": time.time(),
-    }
+class Session(BaseModel):
+    _id: str
+    lat_from: float
+    lon_from: float
+    lat_to: float
+    lon_to: float
+    color: str = Field(
+        default_factory=lambda: random.choice(
+            ["red", "blue", "green", "yellow", "black"]
+        )
+    )
 
 
-@app.websocket("/ws")
+async def geolocate_ip(ip):
+    try:
+        async with httpx.AsyncClient() as client:
+            response = await client.get(f"http://ip-api.com/json/{ip}")
+            data = response.json()
+            if data["status"] == "success":
+                return data["lat"], data["lon"]
+            elif data["status"] == "fail" and data["message"] == "private range":
+                return HONEYPOT_LAT, HONEYPOT_LON
+            else:
+                raise Exception("Error during IP API request")
+    except Exception as e:
+        print(f"IP API error for ip: {ip}: {e}")
+        return 0.0, 0.0
+
+
+async def get_active_sessions():
+    sessions_cursor = db.sessions.find({"endtime": {"$eq": None}})
+    Sessions = []
+    async for sess in sessions_cursor:
+        lat, lon = await geolocate_ip(sess["src_ip"])
+        if lat and lon:
+            session = Session(
+                _id=str(sess["_id"]),
+                lat_from=lat,
+                lon_from=lon,
+                lat_to=HONEYPOT_LAT,
+                lon_to=HONEYPOT_LON,
+            )
+            Sessions.append(session)
+    return Sessions
+
+
 async def websocket_endpoint(websocket: WebSocket):
     await websocket.accept()
-    active_connections.add(websocket)
     try:
         while True:
-            data = await websocket.receive_text()
-            attack = generate_mock_attack()
-            await websocket.send_text(json.dumps(data))
+            sessions = await get_active_sessions()
+            await websocket.send_text(json.dumps([s.dict() for s in sessions]))
+
+            await asyncio.sleep(10)
     except WebSocketDisconnect:
-        active_connections.remove(websocket)
         print("Connection closed")

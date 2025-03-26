@@ -1,4 +1,7 @@
-uvicorn
+uvicorn[standard]
 fastapi
 pymongo
 pydantic
+motor
+httpx
+requests
