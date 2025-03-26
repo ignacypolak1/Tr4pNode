@@ -51,13 +51,11 @@ async def geolocate_ip(ip):
             data = response.json()
             if data["status"] == "success":
                 return data["lat"], data["lon"]
-            elif data["status"] == "fail" and data["message"] == "private range":
-                return None, None
             else:
                 raise Exception("Error during IP API request")
     except Exception as e:
         print(f"IP API error for ip: {ip}: {e}")
-        return 0.0, 0.0
+        return None, None
 
 
 async def get_active_sessions():
