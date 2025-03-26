@@ -49,7 +49,7 @@ async def geolocate_ip(ip):
         async with httpx.AsyncClient() as client:
             response = await client.get(f"http://ip-api.com/json/{ip}")
             data = response.json()
-            if data["status"] == "success":
+            if data["status"] == "success" and data["lat"] and data["lon"]:
                 return data["lat"], data["lon"]
             else:
                 raise Exception("Error during IP API request")
