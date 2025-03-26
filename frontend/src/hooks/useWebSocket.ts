@@ -45,5 +45,5 @@ export const useWebSocket = (
     return () => {
       ws.close();
     };
-  }, [url, onMessage]);
+  }, [url, onSessionsReceived]);
 };
