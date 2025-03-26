@@ -50,7 +50,7 @@ async def geolocate_ip(ip):
             response = await client.get(f"http://ip-api.com/json/{ip}")
             data = response.json()
             if data["status"] == "success" and data["lat"] and data["lon"]:
-                return data["lat"], data["lon"]
+                return float(data["lat"]), float(data["lon"])
             else:
                 raise Exception("Error during IP API request")
     except Exception as e:
