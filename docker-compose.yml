@@ -65,3 +65,17 @@ services:
     depends_on:
       - backend
       - mongo
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    environment:
+      - BACKEND_WEBSOCKET_URI=ws://backend:8000/ws
+    ports:
+      - "3000:80"
+    networks:
+      - cyberpot_net
+    depends_on:
+      - backend
+      - mongo
