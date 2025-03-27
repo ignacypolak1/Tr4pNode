@@ -1,4 +1,4 @@
-# 🌍 CyberPot – Cyberthreat Research Platform
+# 🌍 CyberPot – Cyberthreat Research Platform (WIP)
 
 **CyberPot** is an lightweight, hackable and open-source, research-oriented honeypot platform designed to capture and visualize cyberattacks in real time. It provides an educational-friendly and modular environment that supports threat analysis, DevSecOps training, and public demonstrations of cybersecurity concepts.
 With Cowrie as the SSH honeypot, MongoDB for structured data storage, and Grafana (powered by the Infinity plugin) for dashboard-based exploration, CyberPot bridges low-level event capture with high-level visualization.
