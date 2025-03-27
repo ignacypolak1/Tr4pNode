@@ -1,5 +1,5 @@
-resource "hcloud_firewall" "cyberpot_fw" {
-  name = "cyberpot-fw"
+resource "hcloud_firewall" "tr4pnode_fw" {
+  name = "tr4pnode-fw"
 
   rule {
     direction = "in"
@@ -35,13 +35,13 @@ resource "hcloud_ssh_key" "default" {
   public_key = file("~/.ssh/id_rsa.pub")
 }
 
-resource "hcloud_server" "cyberpot" {
+resource "hcloud_server" "tr4pnode" {
   name = var.server_name
   image = var.server_image
   server_type = var.server_type
   location = var.server_location
   ssh_keys = [hcloud_ssh_key.default.id]
-  firewall_ids = [hcloud_firewall.cyberpot_fw.id]
+  firewall_ids = [hcloud_firewall.tr4pnode_fw.id]
    user_data = <<-EOF
    #cloud-config
 
@@ -61,13 +61,13 @@ resource "hcloud_server" "cyberpot" {
 }
 
 resource "null_resource" "setup_ufw" {
-  depends_on = [ hcloud_server.cyberpot ]
+  depends_on = [ hcloud_server.tr4pnode ]
 
   connection {
     type = "ssh"
     user = "root"
     private_key = file("~/.ssh/id_rsa")
-    host = hcloud_server.cyberpot.ipv4_address
+    host = hcloud_server.tr4pnode.ipv4_address
     port = 2222
   }
 

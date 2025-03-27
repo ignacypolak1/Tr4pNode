@@ -3,34 +3,34 @@ volumes:
   mongo_data:
 
 networks:
-  cyberpot_net:
+  tr4pnode_net:
 
 services:
   mongo:
     image: mongo:6
-    container_name: cyberpot-mongo
+    container_name: tr4pnode-mongo
     restart: unless-stopped
     volumes:
       - mongo_data:/data/db
     networks:
-      - cyberpot_net
+      - tr4pnode_net
 
   backend:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    container_name: cyberpot-backend
+    container_name: tr4pnode-backend
     environment:
       - MONGO_URI=mongodb://mongo:27017
     restart: unless-stopped
     networks:
-      - cyberpot_net
+      - tr4pnode_net
     depends_on:
       - mongo
 
   honeypot:
     image: cowrie/cowrie
-    container_name: cyberpot-honeypot
+    container_name: tr4pnode-honeypot
     restart: unless-stopped
     ports:
       - "22:2222"
@@ -41,13 +41,13 @@ services:
       - ./cowrie/cowrie.cfg:/cowrie/cowrie-git/etc/cowrie.cfg
       - ./cowrie/userdb.txt:/cowrie/cowrie-git/etc/userdb.txt
     networks:
-      - cyberpot_net
+      - tr4pnode_net
     depends_on:
       - mongo
 
   grafana:
     image: grafana/grafana:latest
-    container_name: cyberpot-grafana
+    container_name: tr4pnode-grafana
     restart: unless-stopped
     ports:
       - "3001:3000"
@@ -61,18 +61,18 @@ services:
       - ./grafana/provisioning/datasources.yml:/etc/grafana/provisioning/datasources/datasources.yml
       - ./grafana/dashboards:/etc/grafana/dashboards
     networks:
-      - cyberpot_net
+      - tr4pnode_net
     depends_on:
       - backend
       - mongo
 
   frontend:
-    container_name: cyberpot-frontend
+    container_name: tr4pnode-frontend
     build:
       context: ./frontend
       dockerfile: Dockerfile
     networks:
-      - cyberpot_net
+      - tr4pnode_net
     ports:
       - "3000:80"
     volumes:

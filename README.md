@@ -32,7 +32,7 @@ Offers full flexibility for research, visualization, and educational use cases
 
 ---
 
-## 🛰️ Live Sessions Geolocalization View 
+## 🛰️ Live Sessions Geolocalization View
 
 ![Globe Preview](img/globe.gif)
 
@@ -67,5 +67,4 @@ Tr4pNode is built using a combination of powerful and open-source technologies:
 - [**Vite**](https://vitejs.dev/) – Fast build tool and dev server for frontend development.
 - [**Python**](https://www.python.org/) – Core programming language powering the backend and data processing.
 
-Special thanks to all contributors and maintainers of these tools – you're the real MVPs 🙏
----
+## Special thanks to all contributors and maintainers of these tools – you're the real MVPs 🙏
