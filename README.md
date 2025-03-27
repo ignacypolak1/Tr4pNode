@@ -1,7 +1,7 @@
-# 🌍 CyberPot – Cyberthreat Research Platform (WIP)
+# 🌍 Tr4pNode – Cyberthreat Research Platform (WIP)
 
-**CyberPot** is an lightweight, hackable and open-source, research-oriented honeypot platform designed to capture and visualize cyberattacks in real time. It provides an educational-friendly and modular environment that supports threat analysis, DevSecOps training, and public demonstrations of cybersecurity concepts.
-With Cowrie as the SSH honeypot, MongoDB for structured data storage, and Grafana (powered by the Infinity plugin) for dashboard-based exploration, CyberPot bridges low-level event capture with high-level visualization.
+**Tr4pNode** is an lightweight, hackable and open-source, research-oriented honeypot platform designed to capture and visualize cyberattacks in real time. It provides an educational-friendly and modular environment that supports threat analysis, DevSecOps training, and public demonstrations of cybersecurity concepts.
+With Cowrie as the SSH honeypot, MongoDB for structured data storage, and Grafana (powered by the Infinity plugin) for dashboard-based exploration, Tr4pNode bridges low-level event capture with high-level visualization.
 You can explore real-time logs on an interactive **3D globe** or create **advanced Grafana dashboards** to analyze patterns, sources, and sessions metadata.
 
 ---
@@ -48,7 +48,7 @@ Do not deploy this in environments where it could interfere with production syst
 
 ## 🧩 Built With / Credits
 
-CyberPot is built using a combination of powerful and open-source technologies:
+Tr4pNode is built using a combination of powerful and open-source technologies:
 
 - [**Cowrie**](https://github.com/cowrie/cowrie) – SSH and Telnet honeypot used for logging unauthorized access attempts.
 - [**MongoDB**](https://www.mongodb.com/) – NoSQL document database for storing structured honeypot session data.
