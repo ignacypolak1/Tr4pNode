@@ -46,40 +46,26 @@ Do not deploy this in environments where it could interfere with production syst
 
 ---
 
-## 🧩 Next Steps (WIP)
+## 🧩 Built With / Credits
 
-- [ ] IP geolocation via GeoLite2 or IP2Location
-- [ ] Threat feed export (STIX, JSON, etc.)
-- [ ] Tagging and enriching session metadata
-- [ ] Improved alerting and monitoring capabilities
-- [ ] Public deployment on Hetzner
-- [ ] Additional Grafana dashboards and UI improvements
+CyberPot is built using a combination of powerful and open-source technologies:
 
-## 🤝 Credits / Open Source Acknowledgements
-
-CyberPot wouldn’t be possible without the power of these amazing open-source projects:
-
-    Cowrie – SSH and Telnet honeypot used for logging unauthorized access attempts.
-
-    MongoDB – NoSQL database used for storing structured honeypot session data.
-
-    FastAPI – High-performance Python web framework powering the backend and WebSocket API.
-
-    Motor – Async MongoDB driver for Python.
-
-    httpx – Asynchronous HTTP client used for IP geolocation.
-
-    React + TypeScript – For building the modern, modular frontend.
-
-    TailwindCSS – Utility-first CSS framework for UI styling.
-
-    three-globe – 3D globe visualization library for animated arcs and session mapping.
-
-    three.js – WebGL-based 3D library for rendering the globe and interactive graphics.
-
-    Grafana – Dashboard and observability platform for visualizing MongoDB data.
-
-    Infinity Plugin – Grafana plugin used to visualize JSON API responses from the backend.
+- [**Cowrie**](https://github.com/cowrie/cowrie) – SSH and Telnet honeypot used for logging unauthorized access attempts.
+- [**MongoDB**](https://www.mongodb.com/) – NoSQL document database for storing structured honeypot session data.
+- [**FastAPI**](https://github.com/tiangolo/fastapi) – High-performance web framework powering the backend and WebSocket API.
+- [**Motor**](https://github.com/mongodb/motor) – Asynchronous MongoDB driver for Python.
+- [**httpx**](https://github.com/encode/httpx) – Async HTTP client used for IP geolocation.
+- [**React**](https://react.dev/) + [**TypeScript**](https://www.typescriptlang.org/) – Modern frontend for the globe visualization.
+- [**TailwindCSS**](https://tailwindcss.com/) – Utility-first CSS framework for clean, responsive UI.
+- [**three-globe**](https://github.com/vasturiano/three-globe) – WebGL globe visualization for animated session arcs.
+- [**three.js**](https://threejs.org/) – Core 3D rendering engine powering the globe.
+- [**Grafana**](https://grafana.com/) – Interactive dashboard and observability platform.
+- [**Grafana Infinity Plugin**](https://github.com/yesoreyeram/grafana-infinity-datasource) – JSON/CSV backend API visualizations without database drivers.
+- [**Docker**](https://www.docker.com/) + [**Docker Compose**](https://docs.docker.com/compose/) – Containerized deployment of all services.
+- [**Terraform**](https://www.terraform.io/) – Infrastructure-as-code for automated deployments.
+- [**Nginx**](https://www.nginx.com/) – Reverse proxy for frontend/backend communication.
+- [**Vite**](https://vitejs.dev/) – Fast build tool and dev server for frontend development.
+- [**Python**](https://www.python.org/) – Core programming language powering the backend and data processing.
 
 Special thanks to all contributors and maintainers of these tools – you're the real MVPs. 🙏
 ---
