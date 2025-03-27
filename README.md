@@ -4,7 +4,7 @@
 With Cowrie as the SSH honeypot, MongoDB for structured data storage, and Grafana (powered by the Infinity plugin) for dashboard-based exploration, CyberPot bridges low-level event capture with high-level visualization.
 You can explore real-time logs on an interactive **3D globe** or create **advanced Grafana dashboards** to analyze patterns, sources, and attack metadata.
 
-----
+---
 
 ## 🔥 What It Does?
 
@@ -34,7 +34,7 @@ Offers full flexibility for research, visualization, and educational use cases
 
 ## 🛰️ Live Attack Example
 
-![Globe Preview](img/globe.png)
+![Globe Preview](img/globe.gif)
 
 ---
 
