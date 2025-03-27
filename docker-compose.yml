@@ -67,15 +67,16 @@ services:
       - mongo
 
   frontend:
+    container_name: cyberpot-frontend
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    environment:
-      - BACKEND_WEBSOCKET_URI=ws://backend:8000/ws
-    ports:
-      - "3000:80"
     networks:
       - cyberpot_net
+    ports:
+      - "3000:80"
+    volumes:
+      - ./frontend/nginx/default.conf:/etc/nginx/conf.d/default.conf
     depends_on:
       - backend
       - mongo

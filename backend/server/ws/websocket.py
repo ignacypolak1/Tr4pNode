@@ -38,9 +38,7 @@ class Session(BaseModel):
     lat_to: float
     lon_to: float
     color: str = Field(
-        default_factory=lambda: random.choice(
-            ["red", "blue", "green", "yellow", "black"]
-        )
+        default_factory=lambda: random.choice(["red", "blue", "green", "yellow"])
     )
 
 

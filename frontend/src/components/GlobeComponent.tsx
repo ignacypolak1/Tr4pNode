@@ -20,12 +20,12 @@ const GlobeRenderer = ({ setLoaded, sessions }: GlobeRendererProps) => {
       .globeImageUrl("textures/earth-texture-high-res.jpg")
       .bumpImageUrl("textures/earth-topology.jpg")
       .onGlobeReady(() => setLoaded(true))
-      .arcAltitudeAutoScale(0.2)
+      .arcAltitude(0.3)
       .arcDashLength(1)
       .arcDashGap(1)
       .arcDashInitialGap(() => 1)
       .arcDashAnimateTime(1000)
-      .arcStroke(1)
+      .arcStroke(1.2)
       .arcColor("color")
       .arcsData([]);
 
@@ -76,10 +76,7 @@ const GlobeComponent = () => {
     });
   }, []);
 
-  useWebSocket(
-    process.env.BACKEND_WEBSOCKET_URI ?? "ws://backend:8000/ws",
-    onSessionsReceived
-  );
+  useWebSocket(`ws://${window.location.host}/ws`, onSessionsReceived);
 
   return (
     <div className="w-full h-screen bg-black">
