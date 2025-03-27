@@ -55,4 +55,31 @@ Do not deploy this in environments where it could interfere with production syst
 - [ ] Public deployment on Hetzner
 - [ ] Additional Grafana dashboards and UI improvements
 
+## 🤝 Credits / Open Source Acknowledgements
+
+CyberPot wouldn’t be possible without the power of these amazing open-source projects:
+
+    Cowrie – SSH and Telnet honeypot used for logging unauthorized access attempts.
+
+    MongoDB – NoSQL database used for storing structured honeypot session data.
+
+    FastAPI – High-performance Python web framework powering the backend and WebSocket API.
+
+    Motor – Async MongoDB driver for Python.
+
+    httpx – Asynchronous HTTP client used for IP geolocation.
+
+    React + TypeScript – For building the modern, modular frontend.
+
+    TailwindCSS – Utility-first CSS framework for UI styling.
+
+    three-globe – 3D globe visualization library for animated arcs and session mapping.
+
+    three.js – WebGL-based 3D library for rendering the globe and interactive graphics.
+
+    Grafana – Dashboard and observability platform for visualizing MongoDB data.
+
+    Infinity Plugin – Grafana plugin used to visualize JSON API responses from the backend.
+
+Special thanks to all contributors and maintainers of these tools – you're the real MVPs. 🙏
 ---
