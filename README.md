@@ -32,7 +32,7 @@ Offers full flexibility for research, visualization, and educational use cases
 
 ---
 
-## 🛰️ Live Attack Example
+## 🛰️ Live Sessions Geolocalization View 
 
 ![Globe Preview](img/globe.gif)
 
