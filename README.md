@@ -1,15 +1,15 @@
 # 🌍 Tr4pNode – Cyberthreat Research Platform (WIP)
 
-**Tr4pNode** is an lightweight, hackable and open-source, research-oriented honeypot platform designed to capture and visualize cyberattacks in real time. It provides an educational-friendly and modular environment that supports threat analysis, DevSecOps training, and public demonstrations of cybersecurity concepts.
-With Cowrie as the SSH honeypot, MongoDB for structured data storage, and Grafana (powered by the Infinity plugin) for dashboard-based exploration, Tr4pNode bridges low-level event capture with high-level visualization.
-You can explore real-time logs on an interactive **3D globe** or create **advanced Grafana dashboards** to analyze patterns, sources, and sessions metadata.
+Tr4pNode is a lightweight, hackable, and open-source honeypot platform built for real-time cyberthreat research and visualization. Designed with modularity and education in mind, it empowers users to analyze malicious activity, experiment with DevSecOps practices, and showcase attack data in public demonstrations.
+
+Under the hood, Tr4pNode combines Cowrie for SSH honeypot logging, MongoDB for structured data storage, and Grafana (enhanced with the Infinity plugin) for flexible dashboard-based data exploration. You can inspect session metadata through custom dashboards or watch attacks unfold live on a sleek, animated 3D globe – turning raw intrusion logs into powerful visual insights.
 
 ---
 
 ## 🔥 What It Does?
 
 - Captures unauthorized SSH activity via **Cowrie** and stores data in **MongoDB**
-- Visualizes sessions as animated arcs between attacker and honeypot server location on a **3D globe** using **three-globe** (WIP)
+- Visualizes sessions as animated arcs between attacker and honeypot server location on a **3D globe** using **three-globe**
 - Uses **Grafana dashboards** for session metadata visualization and research purposes
 
 Offers full flexibility for research, visualization, and educational use cases
