@@ -38,11 +38,15 @@ Offers full flexibility for research, visualization, and educational use cases
 
 ---
 
-## ⚠️ Disclaimer
+## ⚠️ Legal Disclaimer
 
 This project is provided **for educational and research purposes only**.  
 The authors and contributors take **no responsibility** for any use of this software.  
 Do not deploy this in environments where it could interfere with production systems or violate legal boundaries.
+
+This system is a research-oriented honeypot. All connections are automatically logged for the sole purpose of statistical and cybersecurity analysis.
+No effort is made to identify individuals. The tool does not associate IP addresses with any user accounts, names, or personal information.
+IP-based data is used solely for research, geolocation-based visualization, and threat intelligence.
 
 ---
 
