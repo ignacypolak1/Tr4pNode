@@ -25,7 +25,7 @@ const GlobeRenderer = ({ setLoaded, sessions }: GlobeRendererProps) => {
       .arcDashGap(1)
       .arcDashInitialGap(() => 1)
       .arcDashAnimateTime(1000)
-      .arcStroke(1.2)
+      .arcStroke(1.0)
       .arcColor("color")
       .arcsData([]);
 
@@ -59,15 +59,7 @@ const GlobeComponent = () => {
   const [sessions, setSessions] = useState<Session[]>([]);
 
   const onSessionsReceived = useCallback((sessions: Session[]) => {
-    setSessions((currentSessions) => {
-      const currentIds = new Set(currentSessions.map((s) => s.id));
-      const newIds = new Set(sessions.map((s) => s.id));
-
-      const added = sessions.filter((s) => !currentIds.has(s.id));
-      const unchanged = currentSessions.filter((s) => newIds.has(s.id));
-
-      return [...unchanged, ...added];
-    });
+    setSessions(sessions);
   }, []);
 
   useWebSocket(`ws://${window.location.host}/ws`, onSessionsReceived);
