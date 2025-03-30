@@ -51,12 +51,6 @@ const GlobeRenderer = ({ setLoaded, sessions }: GlobeRendererProps) => {
     globe.arcsData([...arcs]);
   }, [sessions]);
 
-  useFrame(() => {
-    if (globeRef.current) {
-      globeRef.current.rotation.y += 0.001;
-    }
-  });
-
   return null;
 };
 
