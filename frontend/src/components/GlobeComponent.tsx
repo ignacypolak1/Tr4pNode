@@ -50,6 +50,10 @@ const GlobeRenderer = ({ setLoaded, sessions }: GlobeRendererProps) => {
 
     globe.arcsData([]);
     globe.arcsData([...arcs]);
+
+    console.log("arcs", arcs);
+    console.log("sessions", sessions);
+    console.log("globe", globe.arcsData());
   }, [sessions]);
 
   return null;
@@ -66,6 +70,8 @@ const GlobeComponent = () => {
 
       const added = sessions.filter((s) => !currentIds.has(s.id));
       const unchanged = currentSessions.filter((s) => newIds.has(s.id));
+
+      console.log("OnSessionReceived", [...unchanged, ...added]);
 
       return [...unchanged, ...added];
     });
