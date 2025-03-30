@@ -48,6 +48,7 @@ const GlobeRenderer = ({ setLoaded, sessions }: GlobeRendererProps) => {
       };
     });
 
+    globe.arcsData([]);
     globe.arcsData([...arcs]);
   }, [sessions]);
 
