@@ -4,6 +4,7 @@ volumes:
 
 networks:
   tr4pnode_net:
+  cowrie_net:
 
 services:
   mongo:
@@ -13,6 +14,7 @@ services:
     volumes:
       - mongo_data:/data/db
     networks:
+      - cowrie_net
       - tr4pnode_net
 
   backend:
@@ -41,7 +43,7 @@ services:
       - ./cowrie/cowrie.cfg:/cowrie/cowrie-git/etc/cowrie.cfg
       - ./cowrie/userdb.txt:/cowrie/cowrie-git/etc/userdb.txt
     networks:
-      - tr4pnode_net
+      - cowrie_net
     depends_on:
       - mongo
 
