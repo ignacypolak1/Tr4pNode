@@ -73,7 +73,8 @@ const GlobeComponent = () => {
 
       console.log("OnSessionReceived", [...unchanged, ...added]);
 
-      return [...unchanged, ...added];
+      const arr = [...unchanged, ...added];
+      return arr;
     });
   }, []);
 
