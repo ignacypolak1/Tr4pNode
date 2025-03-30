@@ -80,6 +80,6 @@ async def websocket_endpoint(websocket: WebSocket):
             sessions = await get_active_sessions()
             await websocket.send_text(json.dumps([s.dict() for s in sessions]))
 
-            await asyncio.sleep(10)
+            await asyncio.sleep(2)
     except WebSocketDisconnect:
         print("Connection closed")
