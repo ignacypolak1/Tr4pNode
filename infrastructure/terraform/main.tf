@@ -58,7 +58,7 @@ resource "hcloud_server" "tr4pnode" {
     - systemctl enable docker
     - systemctl start docker
     - git clone https://github.com/ignacypolak1/Tr4pNode.git /opt/tr4pnode
-    - cd /opt/tr4pnode && docker-compose up -d
+    - [ sh, -c, "cd /opt/tr4pnode && docker-compose up -d" ]
     EOF
 }
 
