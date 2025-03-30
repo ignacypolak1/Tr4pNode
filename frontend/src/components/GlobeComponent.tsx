@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState } from "react";
 import Globe from "three-globe";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { Canvas, useThree } from "@react-three/fiber";
 import { OrbitControls, Stars } from "@react-three/drei";
 import { useWebSocket } from "../hooks/useWebSocket";
 import { Session } from "../hooks/useWebSocket";
