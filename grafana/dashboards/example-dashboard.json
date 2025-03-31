@@ -24,7 +24,7 @@
     {
       "datasource": {
         "type": "yesoreyeram-infinity-datasource",
-        "uid": "P9DBA368A33E51739"
+        "name": "Tr4pNodeAPI"
       },
       "fieldConfig": {
         "defaults": {
